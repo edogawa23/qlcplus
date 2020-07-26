@@ -8,6 +8,7 @@
 #include <QLineEdit>
 #include <QGridLayout>
 #include <QDebug>
+#include <QKeyEvent>
 
 #include "simpledesk.h"
 
@@ -94,6 +95,7 @@ signals:
 private:
     void addDigitToNumber(quint8 digit);
     void appendToCommand(QString text);
+    void keyPressEvent(QKeyEvent *event) override;
 
 signals:
 

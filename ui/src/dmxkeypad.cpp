@@ -69,7 +69,20 @@ void DmxKeyPad::setupUi()
     lay->setContentsMargins(1, 1, 1, 1);
     this->setFixedWidth(3 * DMXKEYPAD_BUTTON_SIZE + 15);
     this->setLayout(lay);
-
+    // Keyboard focus type for this QGridLayout
+    this->setFocusPolicy(Qt::StrongFocus);
+    this->setFocus();
+    // LineEdit appearance
+    this->setStyleSheet("QLineEdit{ "
+                        "color: rgb(255, 0, 0);"
+                        "background-color:rgb(200, 200, 200);"
+                        "border: 2px solid gray;"
+                        "border-radius: 5px;"
+                        "padding: 0 8px;"
+                        "selection-background-color: darkgray;"
+                        "font-size: 16px;}"
+                        );
+    
     // LineEdit to display current command status
     m_commandDisplay = new QLineEdit(this);
     m_commandDisplay->setEnabled(false);
@@ -400,6 +413,80 @@ void DmxKeyPad::appendToCommand(QString text)
     qDebug() << Q_FUNC_INFO << "text:" << text;
 
     m_commandDisplay->setText(QString("%1%2").arg(m_commandDisplay->text()).arg(text));
+}
+
+// Keyboard input
+void DmxKeyPad::keyPressEvent(QKeyEvent *event)
+{
+    switch (event->key())
+    {
+    // digits
+        case Qt::Key_0:
+            addDigitToNumber(0);
+            break;
+        case Qt::Key_1:
+            addDigitToNumber(1);
+            break;
+        case Qt::Key_2:
+            addDigitToNumber(2);
+            break;
+        case Qt::Key_3:
+            addDigitToNumber(3);
+            break;
+        case Qt::Key_4:
+            addDigitToNumber(4);
+            break;
+        case Qt::Key_5:
+            addDigitToNumber(5);
+            break;
+        case Qt::Key_6:
+            addDigitToNumber(6);
+            break;
+        case Qt::Key_7:
+            addDigitToNumber(7);
+            break;
+        case Qt::Key_8:
+            addDigitToNumber(8);
+            break;
+        case Qt::Key_9:
+            addDigitToNumber(9);
+            break;
+        // CLR (mapped to "Escape")
+        case Qt::Key_Escape:
+            KP_CLR();
+            break;
+        // AT (mapped to "A")
+        case Qt::Key_A:
+            KP_AT();
+            break;
+        // MINUS (mapped to "-")
+        case Qt::Key_Minus:
+            KP_MINUS();
+            break;
+        // THRU (mapped to "T")
+        case Qt::Key_T:
+            KP_THRU();
+            break;
+        // PLUS (mapped to "+")
+        case Qt::Key_Plus:
+            KP_PLUS();
+            break;
+        // BY (mapped to "B")
+        case Qt::Key_B:
+            KP_BY();
+            break;
+        // FULL (mapped to "F")
+        case Qt::Key_F:
+            KP_FULL();
+            break;
+        // ENTER (mapped to "Return" and "Enter")
+        case Qt::Key_Return:
+        case Qt::Key_Enter:
+            KP_ENTER();
+            break;
+        default:
+            break;
+    }        
 }
 
 /*********************************************************************
