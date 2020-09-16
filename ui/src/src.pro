@@ -6,7 +6,7 @@ LANGUAGE = C++
 TARGET   = qlcplusui
 
 CONFIG += qt
-QT     += core gui script
+QT     += core xml gui script
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets multimedia multimediawidgets
 
 INCLUDEPATH     += monitor showmanager virtualconsole
@@ -62,6 +62,7 @@ HEADERS += aboutbox.h \
            cuestackmodel.h \
            docbrowser.h \
            dmxdumpfactory.h \
+           dmxkeypad.h \
            efxeditor.h \
            efxpreviewarea.h \
            fixtureconsole.h \
@@ -237,6 +238,7 @@ SOURCES += aboutbox.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
            dmxdumpfactory.cpp \
+           dmxkeypad.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \
            fixtureconsole.cpp \
