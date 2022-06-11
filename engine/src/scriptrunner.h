@@ -20,6 +20,9 @@
 #ifndef SCRIPTRUNNER_H
 #define SCRIPTRUNNER_H
 
+#if !defined(Q_OS_IOS)
+#include <QProcess>
+#endif
 #include <QThread>
 #include <QQueue>
 #include <QPair>
@@ -207,6 +210,8 @@ private:
     QQueue<FixtureValue> m_fixtureValueQueue;
     // IDs of the Functions started by this script
     QList <quint32> m_startedFunctions;
+    // External processes started by this script
+    QList <QProcess*> m_startedProcesses;
     // Timer ticks to wait before executing the next line
     quint32 m_waitCount;
     // Map used to lookup a GenericFader instance for a Universe ID

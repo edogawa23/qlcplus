@@ -20,9 +20,6 @@
 #include <QJSEngine>
 #include <QJSValue>
 #include <QRandomGenerator>
-#if !defined(Q_OS_IOS)
-#include <QProcess>
-#endif
 #include <QDebug>
 
 #include "scriptrunner.h"
@@ -79,6 +76,15 @@ void ScriptRunner::stop()
         function->stop(FunctionParent::master());
     }
     m_startedFunctions.clear();
+
+    foreach (QProcess *process, m_startedProcesses)
+    {
+        process->close();
+        process->terminate();
+        delete process;
+    }
+
+    m_startedProcesses.clear();
 
     // request to delete all the active faders
     foreach (QSharedPointer<GenericFader> fader, m_fadersMap.values())
@@ -456,6 +462,7 @@ bool ScriptRunner::systemCommand(QString command)
 #if !defined(Q_OS_IOS)
     QProcess *newProcess = new QProcess();
     newProcess->start(programName, programArgs);
+    m_startedProcesses.append(newProcess);
 #endif
 
     return true;

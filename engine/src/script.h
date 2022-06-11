@@ -23,6 +23,9 @@
 
 #include <QStringList>
 #include <QObject>
+#if !defined(Q_OS_IOS)
+#include <QProcess>
+#endif
 #include <QMap>
 #include "function.h"
 
@@ -252,6 +255,7 @@ private:
     QList < QList<QStringList> > m_lines; //! Raw data parsed into lines of tokens
     QMap <QString,int> m_labels; //! Labels and their line numbers
     QList <Function*> m_startedFunctions; //! Functions started by this script
+    QList <QProcess*> m_startedProcesses; //! External processes started by this script
     QList <int> m_syntaxErrorLines;
 
     GenericFader* m_fader;

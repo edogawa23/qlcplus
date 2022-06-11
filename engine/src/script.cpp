@@ -20,9 +20,6 @@
 
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
-#if !defined(Q_OS_IOS)
-#include <QProcess>
-#endif
 #include <QDebug>
 #include <QUrl>
 #if QT_VERSION >= QT_VERSION_CHECK(5, 10, 0)
@@ -369,6 +366,15 @@ void Script::postRun(MasterTimer *timer, QList<Universe *> universes)
 
     m_startedFunctions.clear();
 
+    foreach (QProcess *process, m_startedProcesses)
+    {
+        process->close();
+        process->terminate();
+        delete process;
+    }
+
+    m_startedProcesses.clear();
+
     dismissAllFaders();
 
     Function::postRun(timer, universes);
@@ -707,6 +713,7 @@ QString Script::handleSystemCommand(const QList<QStringList> &tokens)
         programArgs << tokens[i][1];
 #if !defined(Q_OS_IOS)
     QProcess *newProcess = new QProcess();
+    m_startedProcesses.append(newProcess);
     newProcess->start(programName, programArgs);
 #endif
     return QString();
