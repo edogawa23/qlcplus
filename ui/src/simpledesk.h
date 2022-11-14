@@ -46,6 +46,7 @@ class QSpinBox;
 class CueStack;
 class Doc;
 class Cue;
+class DmxKeyPad;
 
 /** @addtogroup ui_simpledesk
  * @{
@@ -98,6 +99,7 @@ private:
     static SimpleDesk *s_instance;
     SimpleDeskEngine *m_engine;
     QSplitter *m_splitter;
+    QSplitter* m_topSplitter;
     Doc *m_doc;
     bool m_docChanged;
 
@@ -134,6 +136,7 @@ private slots:
     void slotUniverseSliderValueChanged(quint32, quint32, uchar value);
     void slotUpdateUniverseSliders();
     void slotUniverseWritten(quint32 idx, const QByteArray& universeData);
+    void slotKeyPadNewChanValue(uint channel, uchar value);
 
 private:
     QFrame *m_universeGroup;
