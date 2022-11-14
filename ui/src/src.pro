@@ -70,6 +70,7 @@ HEADERS += aboutbox.h \
            cuestackmodel.h \
            docbrowser.h \
            dmxdumpfactory.h \
+           dmxkeypad.h \
            efxeditor.h \
            efxpreviewarea.h \
            fixtureconsole.h \
@@ -251,6 +252,7 @@ SOURCES += aboutbox.cpp \
            cuestackmodel.cpp \
            docbrowser.cpp \
            dmxdumpfactory.cpp \
+           dmxkeypad.cpp \
            efxeditor.cpp \
            efxpreviewarea.cpp \
            fixtureconsole.cpp \
