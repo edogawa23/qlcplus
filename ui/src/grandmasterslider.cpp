@@ -177,7 +177,7 @@ void GrandMasterSlider::updateDisplayValue()
     else
     {
         int p = floor(((double(value) / double(UCHAR_MAX)) * double(100)) + 0.5);
-        str = QString("%1%").arg(p, 2, 10, QChar('0'));
+        str = QString("%1%").arg(p, 1, 10, QChar('0'));
     }
     m_valueLabel->setText(str);
     sendFeedback();
