@@ -392,7 +392,7 @@ void DmxKeyPad::calculateTHRURange()
 
     if (!m_addToRange && !m_subtractFromRange) m_KPSelectedChannels->clear();
 
-    uint i;
+    uint i = m_rangeStartChan;
     if (m_currentChannel < m_rangeStartChan) // range defined in reverse order (higher channel to lower channel)
     {
         for (i = m_rangeStartChan; i >= m_currentChannel; i = i - m_byStepSize)
