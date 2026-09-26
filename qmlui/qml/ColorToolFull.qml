@@ -149,31 +149,76 @@ Rectangle
                                  currentWAUV.r, currentWAUV.g, currentWAUV.b)
             }
 
-            onPressed: (mouse) => setPickedColor(mouse)
-            onPositionChanged: (mouse) => setPickedColor(mouse)
+            onPressed: (mouse) => {
+                setPickedColor(mouse)
+            }
+            onPositionChanged: (mouse) => {
+                setPickedColor(mouse)
+            }
             onReleased: rootBox.released()
         }
 
-        Rectangle
+        // Crosshair markers using upstream's position tracking
+        Item
         {
-            width: 14
-            height: width
-            x: rootBox.selectedColorX - (width / 2)
-            y: rootBox.selectedColorY - (height / 2)
-            radius: width / 2
-            color: "transparent"
-            border.width: 2
-            border.color: "white"
-            antialiasing: true
+            x: 0
+            y: 0
+            width: colorBox.width
+            height: colorBox.height
+            clip: true
 
             Rectangle
             {
-                anchors.fill: parent
-                anchors.margins: 2
-                radius: width / 2
+                id: crosshairH
+                x: 0
+                y: rootBox.selectedColorY - 1
+                width: colorBox.width
+                height: 2
+                color: "white"
+                opacity: 0.8
+            }
+
+            Rectangle
+            {
+                id: crosshairV
+                x: rootBox.selectedColorX - 1
+                y: 0
+                width: 2
+                height: colorBox.height
+                color: "white"
+                opacity: 0.8
+            }
+
+            Rectangle
+            {
+                id: crosshairCenter
+                x: rootBox.selectedColorX - 3
+                y: rootBox.selectedColorY - 3
+                width: 6
+                height: 6
                 color: "transparent"
+                border.color: "white"
+                border.width: 2
+                radius: 3
+                opacity: 0.8
+            }
+
+            // Color preview circle at crosshair center
+            Rectangle
+            {
+                id: previewCircle
+                x: rootBox.selectedColorX - 6
+                y: rootBox.selectedColorY - 6
+                width: 12
+                height: 12
+                radius: 6
+                color: currentRGB
+                border.color: {
+                    // Calculate luminance for contrasting border
+                    var luminance = 0.299 * currentRGB.r + 0.587 * currentRGB.g + 0.114 * currentRGB.b
+                    return luminance > 0.5 ? "black" : "white"
+                }
                 border.width: 1
-                border.color: "black"
                 antialiasing: true
             }
         }
